@@ -1,16 +1,22 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const axios = require('axios');
+const cors = require('cors');
+const axios = require('axios')
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(cors());
 
-app.post('/events', async (req, res) => {
+app.get('/', (req, res) => {res.send({});})
+
+app.post('/events',  async(req, res) => {
+    console.log(0,req.body)
     const { type, data } = req.body;
 
+    console.log(0,type)
     if (type === 'CommentCreated') {
-        const status = data.content.includes('orange') ? 'rejected' : 'approved';
+        console.log(1,type)
 
+        const status = data.content.includes('orange') ? 'rejected' : 'approved';
         await axios.post('http://localhost:4005/events', {
             type: 'CommentModerated',
             data: {
@@ -20,11 +26,34 @@ app.post('/events', async (req, res) => {
                 content: data.content
             }
         });
+        console.log(3,type)
     }
 
     res.send({});
-});
+})
+// app.post('/events', async (req, res) => {
+//     const { type, data } = req.body;
 
-app.listen(4003, () => {
-    console.log('Listening on 4003');
+//     console.log(0,type)
+//     if (type === 'CommentCreated') {
+//         console.log(1,type)
+//         const status = data.content.includes('orange') ? 'rejected' : 'approved';
+
+//         await axios.post('http://localhost:4005/events', {
+//             type: 'CommentModerated',
+//             data: {
+//                 id: data.id,
+//                 postId: data.postId,
+//                 status,
+//                 content: data.content
+//             }
+//         });
+//     }
+
+//     res.send({});
+// });
+
+const PORT = 4003
+app.listen(PORT, () => {
+    console.log(`Listening555 on ${PORT}`);
 });
