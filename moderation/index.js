@@ -31,27 +31,28 @@ app.post('/events',  async(req, res) => {
 
     res.send({});
 })
-// app.post('/events', async (req, res) => {
-//     const { type, data } = req.body;
 
-//     console.log(0,type)
-//     if (type === 'CommentCreated') {
-//         console.log(1,type)
-//         const status = data.content.includes('orange') ? 'rejected' : 'approved';
+app.post('/events', async (req, res) => {
+    const { type, data } = req.body;
 
-//         await axios.post('http://localhost:4005/events', {
-//             type: 'CommentModerated',
-//             data: {
-//                 id: data.id,
-//                 postId: data.postId,
-//                 status,
-//                 content: data.content
-//             }
-//         });
-//     }
+    console.log(0,type)
+    if (type === 'CommentCreated') {
+        console.log(1,type)
+        const status = data.content.includes('orange') ? 'rejected' : 'approved';
 
-//     res.send({});
-// });
+        await axios.post('http://event-bus-srv:4005/events', {
+            type: 'CommentModerated',
+            data: {
+                id: data.id,
+                postId: data.postId,
+                status,
+                content: data.content
+            }
+        });
+    }
+
+    res.send({});
+});
 
 const PORT = 4003
 app.listen(PORT, () => {
