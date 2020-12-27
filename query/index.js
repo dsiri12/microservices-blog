@@ -9,6 +9,7 @@ app.use(cors());
 const posts = {};
 
 const handleEvent = (type, data) => {
+    console.log(type, data)
     if (type === 'PostCreated') {
         const { id, title } = data;
 
@@ -19,7 +20,9 @@ const handleEvent = (type, data) => {
         const { id, content, postId, status } = data;
 
         const post = posts[postId];
-        post.comments.push({ id, content, status });     
+        post.comments.push({ id, content, status });  
+        
+        // posts[postId] = post.comments
     }
 
     if (type === 'CommentUpdated') {
@@ -37,6 +40,7 @@ const handleEvent = (type, data) => {
 };
 
 app.get('/posts', (req, res) => {
+    console.log(posts)
     res.send(posts);
 });
 

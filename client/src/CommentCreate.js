@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default ({ postId }) => {
+const CommentCreate = ({ postId }) => {
     const [content, setContent] = useState('');
 
     const onSubmit = async (event) => {
@@ -24,3 +24,6 @@ export default ({ postId }) => {
         </form>
     </div>;
 };
+
+export default CommentCreate
+

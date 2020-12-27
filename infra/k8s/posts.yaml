@@ -8,4 +8,4 @@ metadata:
 spec:
   containers:
     - name: posts
-      image: dsiri12/posts:0.0.1
+      image: dsiri12/posts

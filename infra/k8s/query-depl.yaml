@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: query
-          image: dsiri12/query:0.0.1
+          image: dsiri12/query
 ---
 apiVersion: v1
 kind: Service

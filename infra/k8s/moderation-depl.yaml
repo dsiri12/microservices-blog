@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: moderation
-          image: dsiri12/moderation:0.0.1
+          image: dsiri12/moderation
 ---
 apiVersion: v1
 kind: Service

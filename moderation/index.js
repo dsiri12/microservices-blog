@@ -26,7 +26,6 @@ app.post('/events',  async(req, res) => {
                 content: data.content
             }
         });
-        console.log(3,type)
     }
 
     res.send({});
@@ -35,9 +34,9 @@ app.post('/events',  async(req, res) => {
 app.post('/events', async (req, res) => {
     const { type, data } = req.body;
 
-    console.log(0,type)
+    console.log(type)
     if (type === 'CommentCreated') {
-        console.log(1,type)
+        console.log('CommentCreated', type)
         const status = data.content.includes('orange') ? 'rejected' : 'approved';
 
         await axios.post('http://event-bus-srv:4005/events', {
@@ -56,5 +55,5 @@ app.post('/events', async (req, res) => {
 
 const PORT = 4003
 app.listen(PORT, () => {
-    console.log(`Listening555 on ${PORT}`);
+    console.log(`Listening on ${PORT}`);
 });

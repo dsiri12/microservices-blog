@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: dsiri12/client:0.0.1
+          image: dsiri12/client
 ---
 apiVersion: v1
 kind: Service

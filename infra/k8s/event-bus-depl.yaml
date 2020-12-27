@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: event-bus
-          image: dsiri12/event-bus:0.0.1
+          image: dsiri12/event-bus
 ---
 apiVersion: v1
 kind: Service

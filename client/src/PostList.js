@@ -3,7 +3,7 @@ import axios from 'axios';
 import CommentCreate from './CommentCreate';
 import CommentList from './CommentList';
 
-export default () => {
+const PostList = () => {
     const [posts, setPosts] = useState({});
 
     const fetchPosts = async () => {
@@ -24,7 +24,7 @@ export default () => {
             key={post.id}
         >
             <div className="card-body">
-                <h3>{post.title}</h3>
+                <h3>{post.title} , comment count: {post.comments.length}</h3>
                 <CommentList comments={post.comments} />
                 <CommentCreate postId={post.id} />
             </div>
@@ -38,3 +38,5 @@ export default () => {
     </div>
     );
 }
+
+export default PostList
