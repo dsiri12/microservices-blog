@@ -1,32 +1,28 @@
 const express = require('express');
-const cors = require('cors');
+const bodyParser = require('body-parser');
 const axios = require('axios');
 
 const app = express();
-app.use(express.json()); // for req.body
-app.use(cors());
+app.use(bodyParser.json());
 
 const events = [];
 
-app.post('/events', async (req, res) => {
-    const event = req.body;
+app.post('/events', (req, res) => {
+  console.log('Received Event', req.body.type);
+  const event = req.body;
 
-    events.push(event);
+  events.push(event);
 
-    console.log('1 event-bus: Received Event', req.body.type);
+  axios.post('http://posts-srv:4000/events', event);
+  axios.post('http://comments-srv:4001/events', event);
+  axios.post('http://query-srv:4002/events', event);
+  axios.post('http://moderation-srv:4003/events', event);
 
-    await axios.post('http://posts-clusterip-srv:4000/events', event);
-    await axios.post('http://comments-srv:4001/events', event);
-    await axios.post('http://query-srv:4002/events', event);
-    await axios.post('http://moderation-srv:4003/events', event);
-
-    console.log('2 event-bus: Received Event', req.body.type);
-
-    res.send({ status: 'OK' });
+  res.send({ status: 'OK' });
 });
 
 app.get('/events', (req, res) => {
-    res.send(events);
+  res.send(events);
 });
 
 const PORT = 4005

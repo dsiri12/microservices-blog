@@ -24,7 +24,7 @@ const PostList = () => {
             key={post.id}
         >
             <div className="card-body">
-                <h3>{post.title} , comment count: {post.comments.length}</h3>
+                <h3>{post.title} </h3>
                 <CommentList comments={post.comments} />
                 <CommentCreate postId={post.id} />
             </div>
